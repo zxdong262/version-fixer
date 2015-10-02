@@ -1,5 +1,5 @@
 # version-fixer
-read current installed module version and update `package.json`
+read current installed module version and update `package.json` or make all module version to `*`
 
 example: will change `"commander": "*"` to `"commander": "2.8.1"` in `package.json`
 
@@ -18,6 +18,17 @@ or
 ```bash
 version-fixer path/to/your/project
 ```
+
+with prefix
+```bash
+version-fixer -p '^' path/to/your/project
+```
+
+make all version number to `*`
+```bash
+version-fixer -p '*' path/to/your/project
+```
+
 
 ## test
 ```bash

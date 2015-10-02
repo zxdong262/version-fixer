@@ -7,15 +7,57 @@ var vf = require('../')
 ,pkgStr = fs.readFileSync(rpath)
 ,oldPkg = require(rpath)
 
-vf({
-	dir: path.resolve('.')
-})
 
-var newPkg = JSON.parse(fs.readFileSync(rpath).toString())
+
+
 
 describe('version fixer', function() {
-	it('works well', function() {
-		fs.writeFileSync(rpath, pkgStr)
-		assert(newPkg.devDependencies.mocha !== oldPkg.devDependencies.mocha)
+	it('default', function(done) {
+
+		vf({
+			dir: path.resolve('.')
+			,prefix: ''
+		})
+
+		setTimeout(function() {
+			var newPkg = JSON.parse(fs.readFileSync(rpath).toString())
+			fs.writeFileSync(rpath, pkgStr)
+			assert(newPkg.devDependencies.mocha !== oldPkg.devDependencies.mocha)
+			done()
+		}, 500)
+
 	})
+
+	it('with prefix ^', function(done) {
+
+		vf({
+			dir: path.resolve('.')
+			,prefix: '^'
+		})
+
+		setTimeout(function() {
+			var newPkg = JSON.parse(fs.readFileSync(rpath).toString())
+			fs.writeFileSync(rpath, pkgStr)
+			assert(newPkg.devDependencies.mocha !== oldPkg.devDependencies.mocha && newPkg.devDependencies.mocha.indexOf('^') === 0)
+			done()
+		}, 500)
+
+	})
+
+	it('with prefix *', function(done) {
+
+		vf({
+			dir: path.resolve('.')
+			,prefix: '*'
+		})
+
+		setTimeout(function() {
+			var newPkg = JSON.parse(fs.readFileSync(rpath).toString())
+			fs.writeFileSync(rpath, pkgStr)
+			assert(newPkg.devDependencies.mocha !== oldPkg.devDependencies.mocha && newPkg.devDependencies.mocha === '*')
+			done()
+		}, 500)
+
+	})
+
 })
