@@ -1,4 +1,6 @@
 # version-fixer
+[![Build Status](https://travis-ci.org/zxdong262/version-fixer.svg?branch=master)](https://travis-ci.org/zxdong262/version-fixer)
+
 read current installed module version and update `package.json` or make all module version to `*`
 
 example: will change `"commander": "*"` to `"commander": "2.8.1"` in `package.json`
